@@ -1,8 +1,8 @@
 import { useGetRestaurant } from "@/api/RestaurantApi";
 import { useParams } from "react-router-dom";
-import { AspectRatio } from "./ui/aspect-ratio";
-import RestaurantInfo from "./RestaurantInfo";
-import MenuItem from "./MenuItem";
+import { AspectRatio } from "@/@/components/ui/aspect-ratio";
+import RestaurantInfo from "@/@/components/RestaurantInfo";
+import MenuItem from "@/@/components/MenuItem";
 
 const DetailPage = () => {
   const { restaurantId } = useParams();
