@@ -19,10 +19,10 @@ const DetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurant, isLoading } = useGetRestaurant(restaurantId);
 
-  const [cartItems, setcartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (menuItem: MenuItemType) => {
-    setcartItems((prevCartItems) => {
+    setCartItems((prevCartItems) => {
       const existingCartItem = prevCartItems.find(
         (cartItem) => cartItem._id === menuItem._id
       );
@@ -46,6 +46,15 @@ const DetailPage = () => {
           },
         ];
       }
+      return updatedCartItems;
+    });
+  };
+
+  const removeFromCart = (cartItem: CartItem) => {
+    setCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.filter(
+        (item) => cartItem._id !== item._id
+      );
       return updatedCartItems;
     });
   };
@@ -75,7 +84,11 @@ const DetailPage = () => {
 
         <div>
           <Card>
-            <OrderSummary restaurant={restaurant} cartItems={cartItems} />
+            <OrderSummary
+              restaurant={restaurant}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
           </Card>
         </div>
       </div>
