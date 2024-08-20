@@ -21,11 +21,18 @@ export const useGetMyOrders = () => {
     return response.json();
   };
 
-  const { data: orders, isLoading } = useQuery(
-    "fetchMyOrders",
-    getMyOrdersRequest
-  );
-  return { orders, isLoading };
+  const {
+    data: orders,
+    isLoading,
+    error,
+  } = useQuery("fetchMyOrders", getMyOrdersRequest, {
+    onError: (err) => {
+      console.error("Error fetching orders:", err);
+      toast.error("Failed to load orders.");
+    },
+  });
+
+  return { orders, isLoading, error };
 };
 
 type CheckoutSessionRequest = {
@@ -50,6 +57,7 @@ export const useCreateCheckoutSession = () => {
     checkoutSessionRequest: CheckoutSessionRequest
   ) => {
     const accessToken = await getAccessTokenSilently();
+    console.log("Access Token:", accessToken);
     const response = await fetch(
       `${API_BASE_URL}/api/order/checkout/create-checkout-session`,
       {

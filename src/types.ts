@@ -43,7 +43,7 @@ export type Order = {
     name: string;
     quantity: string;
   }[];
-  deliverDetails: {
+  deliveryDetails: {
     name: string;
     addressLine1: string;
     city: string;
