@@ -21,18 +21,15 @@ export const useGetMyOrders = () => {
     return response.json();
   };
 
-  const {
-    data: orders,
-    isLoading,
-    error,
-  } = useQuery("fetchMyOrders", getMyOrdersRequest, {
-    onError: (err) => {
-      console.error("Error fetching orders:", err);
-      toast.error("Failed to load orders.");
-    },
-  });
+  const { data: orders, isLoading } = useQuery(
+    "fetchMyOrders",
+    getMyOrdersRequest,
+    {
+      refetchInterval: 5000,
+    }
+  );
 
-  return { orders, isLoading, error };
+  return { orders, isLoading };
 };
 
 type CheckoutSessionRequest = {
